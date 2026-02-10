@@ -82,7 +82,6 @@ function showResult(data) {
     
     const isProtocol = trimmed.startsWith("http://") || trimmed.startsWith("https://");
     const isWww = trimmed.toLowerCase().startsWith("www.");
-    // Cek apakah mengandung titik (seperti .com, .io) tapi tidak ada spasi (bukan kalimat)
     const isDomain = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$/.test(trimmed);
 
     if (isProtocol) {
