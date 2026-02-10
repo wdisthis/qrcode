@@ -13,12 +13,12 @@ document.getElementById('generateBtn').onclick = () => {
   qr.value = value;
 };
 
-document.getElementById("textInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") document.getElementById("generateBtn").click();
-});
-
 document.getElementById('downloadBtn').onclick = () => {
   const canvas = document.getElementById('qr');
+  if (qr.value === "https://github.com/neocotic/qrious") {
+    alert("Please generate a QR code first!");
+    return;
+  }
   const link = document.createElement('a');
   link.download = "qrcode_" + Date.now() + ".png";
   link.href = canvas.toDataURL("image/png");
@@ -26,9 +26,8 @@ document.getElementById('downloadBtn').onclick = () => {
 };
 
 const uploadInput = document.getElementById('uploadInput');
-const resultWrapper = document.getElementById('resultWrapper');
 const resultText = document.getElementById('resultText');
-const actionGroup = document.getElementById('actionGroup');
+let decodedData = "";
 
 uploadInput.onchange = function(e) {
   const file = e.target.files[0];
@@ -40,17 +39,18 @@ uploadInput.onchange = function(e) {
     img.onload = function() {
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = img.width; canvas.height = img.height;
       context.drawImage(img, 0, 0, img.width, img.height);
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
       const code = jsQR(imageData.data, imageData.width, imageData.height);
 
       if (code) {
-        showResult(code.data);
+        decodedData = code.data.trim();
+        resultText.innerText = decodedData;
       } else {
         alert("No QR Code detected.");
-        resultWrapper.style.display = "none";
+        decodedData = "";
+        resultText.innerText = "No QR Code detected.";
       }
     };
     img.src = reader.result;
@@ -58,39 +58,31 @@ uploadInput.onchange = function(e) {
   reader.readAsDataURL(file);
 };
 
-function showResult(data) {
-  resultWrapper.style.display = "block";
-  resultText.innerText = data;
-  actionGroup.innerHTML = ""; 
+document.getElementById('copyBtn').onclick = function() {
+  if (!decodedData) {
+    alert("Nothing to copy! Please scan an image first.");
+    return;
+  }
+  navigator.clipboard.writeText(decodedData);
+  const original = this.innerText;
+  this.innerText = "Copied!";
+  setTimeout(() => { this.innerText = original; }, 2000);
+};
 
-  const copyBtn = document.createElement('button');
-  copyBtn.className = "primary-btn";
-  copyBtn.innerText = "Copy to Clipboard";
-  copyBtn.onclick = () => {
-    navigator.clipboard.writeText(data);
-    const originalText = copyBtn.innerText;
-    copyBtn.innerText = "Copied!";
-    setTimeout(() => { copyBtn.innerText = originalText; }, 2000);
-  };
-  actionGroup.appendChild(copyBtn);
+document.getElementById('visitBtn').onclick = function() {
+  if (!decodedData) {
+    alert("Nothing to visit! Please scan an image first.");
+    return;
+  }
+  const isProtocol = decodedData.startsWith("http://") || decodedData.startsWith("https://");
+  const isWww = decodedData.toLowerCase().startsWith("www.");
+  const isDomain = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$/.test(decodedData);
 
- const visitBtn = document.createElement('button');
-  visitBtn.className = "primary-btn secondary-color";
-  visitBtn.innerText = "Visit in Browser";
-  visitBtn.onclick = () => {
-    const trimmed = data.trim();
-    
-    const isProtocol = trimmed.startsWith("http://") || trimmed.startsWith("https://");
-    const isWww = trimmed.toLowerCase().startsWith("www.");
-    const isDomain = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$/.test(trimmed);
-
-    if (isProtocol) {
-      window.open(trimmed, '_blank');
-    } else if (isWww || isDomain) {
-      window.open(`https://${trimmed}`, '_blank');
-    } else {
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(trimmed)}`, '_blank');
-    }
-  };
-  actionGroup.appendChild(visitBtn);
-}
+  if (isProtocol) {
+    window.open(decodedData, '_blank');
+  } else if (isWww || isDomain) {
+    window.open(`https://${decodedData}`, '_blank');
+  } else {
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(decodedData)}`, '_blank');
+  }
+};

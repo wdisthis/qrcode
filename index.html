@@ -6,6 +6,7 @@
   <title>QR Tool - Generator & Decoder</title>
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="style/style.css">
 </head>
 
@@ -36,8 +37,21 @@
 
         <div id="resultWrapper">
           <div class="result-label">Decoded Result:</div>
-          <div id="resultText"></div>
-          <div class="action-group" id="actionGroup"></div>
+          <div id="resultText">Waiting for scan...</div>
+          <div class="action-group">
+            <button id="copyBtn" class="primary-btn">Copy to Clipboard</button>
+            <button id="visitBtn" class="primary-btn secondary-color">Visit in Browser</button>
+          </div>
+        </div>
+
+        <div class="contact-area">
+          <p class="contact-label">Contact Me</p>
+          <div class="social-links">
+            <a href="https://github.com/wdisthis" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:fitra.datasci@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/6283807335018" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/fitra-d/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
         </div>
       </div>
     </div>
