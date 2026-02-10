@@ -3,25 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Generator</title>
+  <title>QR Tool - Generator & Decoder</title>
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
   <div class="container">
-    <h2>QR Code Generator</h2>
-    <p class="sub">Create clean and quick QR codes</p>
-
-    <input type="text" id="textInput" placeholder="Enter text or URL">
-
-    <button id="generateBtn">Generate</button>
-
-    <div class="qr-wrapper">
-      <canvas id="qr" width="260" height="260"></canvas>
+    <div class="header">
+      <h2>QR Code Tool</h2>
+      <p class="sub">Create or Scan QR codes easily</p>
     </div>
 
-    <button id="downloadBtn">Download</button>
+    <div class="main-content">
+      <div class="section">
+        <p class="section-title">QR Generator</p>
+        <input type="text" id="textInput" placeholder="Enter text or URL">
+        <button id="generateBtn" class="primary-btn">Generate QR Code</button>
+
+        <div class="qr-wrapper">
+          <canvas id="qr" width="260" height="260"></canvas>
+        </div>
+
+        <button id="downloadBtn" class="primary-btn secondary-color">Download Image</button>
+      </div>
+
+      <div class="section decoder-section">
+        <p class="section-title">QR Decoder</p>
+        <label for="uploadInput" class="custom-file-upload">Scan from Image</label>
+        <input type="file" id="uploadInput" accept="image/*">
+
+        <div id="resultWrapper">
+          <div class="result-label">Decoded Result:</div>
+          <div id="resultText"></div>
+          <div class="action-group" id="actionGroup"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="script/app.js"></script>
