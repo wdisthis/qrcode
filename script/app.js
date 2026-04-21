@@ -100,8 +100,25 @@ document.getElementById('visitBtn').onclick = function() {
   window.open(url, '_blank');
 };
 
-// Helper: Simple Notification (Mocked via console/alerts for now, could be enhanced with CSS)
+// Helper: Simple Notification (Toast System)
 function showNotification(message, type) {
-  console.log(`[${type.toUpperCase()}] ${message}`);
-  // We could add a toast element if needed, but for now, we'll use a simple visual cue on buttons or just leave as is for "premium" feel
-}
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  
+  const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+  toast.innerHTML = `
+    <i class="fa-solid ${icon}"></i>
+    <span>${message}</span>
+  `;
+  
+  container.appendChild(toast);
+  
+  // Remove toast after 3 seconds
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => {
+      container.removeChild(toast);
+    }, 400);
+  }, 3000);
+}
