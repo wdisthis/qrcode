@@ -7,55 +7,79 @@
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">
-      <h2>QR Code Tool</h2>
+  <div class="bg-glow"></div>
+  
+  <main class="container">
+    <header class="header">
+      <div class="logo-icon"><i class="fa-solid fa-qrcode"></i></div>
+      <h1>QR Code Tool</h1>
       <p class="sub">Create or Scan QR codes easily</p>
-    </div>
+    </header>
 
     <div class="main-content">
-      <div class="section">
-        <p class="section-title">QR Generator</p>
-        <input type="text" id="textInput" placeholder="Enter text or URL">
-        <button id="generateBtn" class="primary-btn">Generate QR Code</button>
-
-        <div class="qr-wrapper">
-          <canvas id="qr" width="260" height="260"></canvas>
+      <section class="card generator-card">
+        <div class="section-header">
+          <i class="fa-solid fa-plus-circle"></i>
+          <h3>QR Generator</h3>
+        </div>
+        <div class="input-group">
+          <input type="text" id="textInput" placeholder="Enter text or URL">
+          <button id="generateBtn" class="primary-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate QR Code</button>
         </div>
 
-        <button id="downloadBtn" class="primary-btn secondary-color">Download Image</button>
-      </div>
+        <div class="qr-preview">
+          <div class="qr-wrapper">
+            <canvas id="qr" width="260" height="260"></canvas>
+          </div>
+        </div>
 
-      <div class="section decoder-section">
-        <p class="section-title">QR Decoder</p>
-        <label for="uploadInput" class="custom-file-upload">Scan from Image</label>
-        <input type="file" id="uploadInput" accept="image/*">
+        <button id="downloadBtn" class="secondary-btn"><i class="fa-solid fa-download"></i> Download Image</button>
+      </section>
 
-        <div id="resultWrapper">
+      <section class="card decoder-card">
+        <div class="section-header">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+          <h3>QR Decoder</h3>
+        </div>
+        
+        <div class="upload-area">
+          <label for="uploadInput" class="custom-file-upload">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Scan from Image</span>
+          </label>
+          <input type="file" id="uploadInput" accept="image/*">
+        </div>
+
+        <div id="resultWrapper" class="hidden">
           <div class="result-label">Decoded Result:</div>
           <div id="resultText">Waiting for scan...</div>
-          <div class="action-group">
-            <button id="copyBtn" class="primary-btn">Copy to Clipboard</button>
-            <button id="visitBtn" class="primary-btn secondary-color">Visit in Browser</button>
+          <div class="action-buttons">
+            <button id="copyBtn" class="action-btn" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
+            <button id="visitBtn" class="action-btn highlight" title="Open Link"><i class="fa-solid fa-external-link"></i> Visit in Browser</button>
           </div>
         </div>
 
-        <div class="contact-area">
+        <footer class="contact-area">
           <p class="contact-label">Contact Me</p>
           <div class="social-links">
-            <a href="https://github.com/wdisthis" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:fitra.datasci@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://wa.me/6283807335018" target="_blank" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://www.linkedin.com/in/fitra-d/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/wdisthis" target="_blank" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:fitra.datasci@gmail.com" class="social-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/6283807335018" target="_blank" class="social-link" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/fitra-d/" target="_blank" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
           </div>
-        </div>
-      </div>
+        </footer>
+      </section>
     </div>
-  </div>
+  </main>
+
+  <div id="toast-container"></div>
 
   <script src="script/app.js"></script>
 </body>
