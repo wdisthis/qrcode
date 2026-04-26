@@ -2,6 +2,11 @@
 
 A modern web application designed to generate and decode QR codes efficiently. This project features a premium design with Glassmorphism aesthetics and a fully responsive interface.
 
+### [🔗 Live Demo](https://wdisthis.github.io/qrcode/)
+
+![QR Code Tool Preview](png/qrcode.png)
+
+
 ## Core Features
 
 | Feature | Description |
@@ -33,8 +38,10 @@ qrcode/
 ├── index.html         # Main file containing the HTML structure
 ├── script/
 │   └── app.js         # JavaScript application logic file
-└── style/
-    └── style.css      # CSS visual design and styling file
+├── style/
+│   └── style.css      # CSS visual design and styling file
+└── png/
+    └── qrcode.png     # Web preview image file
 ```
 
 ## How to Use
