@@ -50,3 +50,4 @@ qrcode/
 2. To generate a QR code, enter text or a URL in the input field under the QR Generator section, then click Generate.
 3. To decode a QR code, upload an image file containing a QR code through the QR Decoder section.
 4. Use the download button to save the image, or the copy button to copy the scanned text results.
+
